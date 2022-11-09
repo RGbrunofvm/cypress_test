@@ -1,16 +1,42 @@
-name: Cypress TEsts
-
-on: [push]
+name: example-chrome
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
 
 jobs:
-  cypress-run:
-    runs-on: ubuntu-latest
+  tests-v10:
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Cypress info
+        uses: ./
+        with:
+          # just for full picture after installing Cypress
+          # print information about detected browsers, etc
+          # see https://on.cypress.io/command-line#cypress-info
+          build: npx cypress info
+          working-directory: examples/v10/chrome
       # Install NPM dependencies, cache them correctly
       # and run all Cypress tests
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+      - name: Chrome
+        uses: ./
         with:
-          build: npx cypress run
+          working-directory: examples/v10/chrome
+          browser: chrome
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: screenshots-in-chrome
+          path: examples/v10/chrome/cypress/screenshots
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: video-in-chrome
+          path: examples/v10/chrome/cypress/videos
+
+      - run: npx image-size cypress/screenshots/**/*.png
+        working-directory: examples/v10/chrome
