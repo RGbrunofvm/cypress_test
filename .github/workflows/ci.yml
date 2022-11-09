@@ -2,13 +2,10 @@ name: End-to-end tests
 on: [push]
 jobs:
   cypress-run:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+    container: cypress/included:3.8.3
     steps:
       - name: Checkout
         uses: actions/checkout@v1
       - name: Run E2E tests
-        uses: cypress-io/github-action@v2
-        with:
-          install: false
-          build: npm i -D cypress
-          start: "npx cypress run --browser chrome"
+        run: npx cypress run
