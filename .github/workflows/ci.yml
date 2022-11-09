@@ -10,4 +10,5 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           install: false
-          start: "npx cypress run"
+          build: npm i -D cypress
+          start: "npx cypress run --browser chrome"
