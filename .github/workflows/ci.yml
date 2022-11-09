@@ -13,7 +13,7 @@ jobs:
       - name: Install Cypress
         run: npm i -D cypress
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4.1.0
         with:
           build: npx cypress run
           
