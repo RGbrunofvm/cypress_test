@@ -4,7 +4,8 @@ describe('test de login', () => {
   beforeEach(() => {
    cy.visit('https://the-internet.herokuapp.com/') 
    cy.get(':nth-child(21) > a').click()
-   
+
+    
   })
   
     it('A valid user can login', () =>{
